@@ -1,10 +1,3 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
-
 import React, {useState, useEffect} from 'react';
 import type {PropsWithChildren} from 'react';
 import {
@@ -16,8 +9,11 @@ import {
   Text,
   useColorScheme,
   View,
+  TouchableHighlight,
 } from 'react-native';
-import KeyEvent from 'react-native-keyevent';
+// import {TvOSButton} from 'react-native-tvos-elements';
+// import KeyEvent from 'react-native-keyevent';
+// import {TouchableHighlight} from 'react-native-tvos';
 
 import {
   Colors,
@@ -62,49 +58,18 @@ function Section({children, title}: SectionProps): JSX.Element {
 function App(): JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
   const [number, setNumber] = useState<number>(0);
-  useEffect(() => {
-    KeyEvent.onKeyUpListener((keyEvent: any) => {
-      handleTVRemoteEvent(keyEvent.keyCode);
-    });
-
-    return () => {
-      KeyEvent.removeKeyUpListener();
-    };
-  }, []);
-
-  const handleTVRemoteEvent = (keyCode: any) => {
-    // Handle remote control button events here
-    // switch (keyCode) {
-    //   case KeyEvent.VK_LEFT:
-    //     // Handle left button press
-    //     break;
-    //   case KeyEvent.VK_RIGHT:
-    //     // Handle right button press
-    //     break;
-    //   case KeyEvent.VK_UP:
-    //     // Handle up button press
-    //     break;
-    //   case KeyEvent.VK_DOWN:
-    //     // Handle down button press
-    //     break;
-    //   case KeyEvent.VK_ENTER:
-    //     // Handle select button press
-    //     break;
-    //   case KeyEvent.VK_MEDIA_PLAY_PAUSE:
-    //     // Handle play/pause button press
-    //     break;
-    //   case KeyEvent.VK_MENU:
-    //     // Handle menu button press
-    //     break;
-    // }
-  };
 
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
 
   const handleButtonClick = () => {
+    // setNumber(number + 1);
+  };
+
+  const handlePress = () => {
     setNumber(number + 1);
+    console.log('Button pressed');
   };
 
   return (
@@ -125,21 +90,12 @@ function App(): JSX.Element {
           <Text>Welcome to Android TV App!</Text>
           {/* <Text>Click me</Text> */}
           <Text>{number}</Text>
-          {/* <Button>Click me</Button> */}
-          {/* <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section> */}
-          {/* <LearnMoreLinks /> */}
+          <TouchableHighlight
+            style={styles.button}
+            underlayColor="#DDDDDD"
+            onPress={handlePress}>
+            <Text style={styles.buttonText}>Press me</Text>
+          </TouchableHighlight>
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -147,6 +103,15 @@ function App(): JSX.Element {
 }
 
 const styles = StyleSheet.create({
+  button: {
+    backgroundColor: '#DDDDDD',
+    padding: 10,
+    borderRadius: 8,
+  },
+  buttonText: {
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
   sectionContainer: {
     marginTop: 32,
     paddingHorizontal: 24,
